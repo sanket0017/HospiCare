@@ -1,0 +1,83 @@
+HOSPICARE FIREBASE CROSS-DEVICE DEMO SETUP
+===========================================
+
+Firebase project: hospicare-603cf
+Firestore region: asia-south1
+Authentication: Email/Password
+
+A. VERIFY AUTHENTICATION USERS
+------------------------------
+Firebase Console > Authentication > Users should contain:
+- sanket@hospicare.demo
+- nikhil@hospicare.demo
+- doctor@kkhospicare.demo
+- manager@kkhospicare.demo
+
+Do not recreate existing users. Use the UIDs already created.
+
+B. VERIFY FIRESTORE USER PROFILES
+---------------------------------
+Each document ID must exactly equal that account's Firebase Authentication UID.
+
+Sanket:
+  email = sanket@hospicare.demo
+  name = Sanket
+  role = patient
+
+Nikhil:
+  email = nikhil@hospicare.demo
+  name = Nikhil
+  role = patient
+
+Doctor:
+  email = doctor@kkhospicare.demo
+  name = Dr. Shrikant Kurhade
+  role = doctor
+  doctorId = doctor_001
+  hospitalId = hospital_001
+
+Hospital manager:
+  email = manager@kkhospicare.demo
+  name = KK Multispeciality Hospital Manager
+  role = hospital_manager
+  hospitalId = hospital_001
+
+C. PUBLISH FIRESTORE RULES
+--------------------------
+1. Open Firebase Console > Firestore Database > Rules.
+2. Replace the editor contents with firestore.rules.txt.
+3. The supplied rules additionally verify that each booking references a real doctor assigned to the selected hospital, and an active hospital record.
+4. Test allow/deny cases in Rules Playground or Firebase Emulator first.
+5. Publish only after tests pass. Do not paste the older rules shown in your Firebase screenshot.
+
+D. SET DOCTOR AVAILABILITY
+--------------------------
+1. Run the website with VS Code Live Server (not file://).
+2. Sign in as doctor@kkhospicare.demo and choose Doctor.
+3. On doctor-dashboard.html, choose one or more available weekdays.
+4. Set start time, end time and slot duration.
+5. Click Save availability.
+This writes doctorAvailability/doctor_001. Until this is saved, patient booking is intentionally blocked.
+
+E. TEST TWO-DEVICE FLOW
+-----------------------
+1. Open the site in Browser/Device A and sign in as Sanket or Nikhil.
+2. Open the site in Browser/Device B and sign in as the doctor.
+3. On the doctor dashboard, publish availability first.
+4. On Device A, book an available slot.
+5. Confirm that the booking appears on the doctor dashboard on Device B.
+6. Sign in as manager on another browser/device and confirm the booking appears there.
+7. On the doctor dashboard, select the booking date and update the serving token.
+8. On the patient's device, open Queue. The current serving token should update live.
+
+F. EXISTING QUEUE DOCUMENT
+--------------------------
+An older manually created queues/{doctorId}_{date} document may contain appointmentDate instead of queueDate. The rules accept the legacy date field during the first booking update and the booking transaction adds queueDate. Do not delete existing queue documents.
+
+G. IMPORTANT LIMITATIONS
+------------------------
+- Payments are not connected; revenue remains ₹0.
+- Availability is a weekly schedule, not holiday/leave management.
+- The booking reason is potentially sensitive health information. This demo is not approved for real patient records.
+- The rules are proposed and must be tested before publishing.
+- Use HTTPS and configure Firebase Authentication authorized domains for deployment.

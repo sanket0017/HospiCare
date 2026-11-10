@@ -1,0 +1,41 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Patient registration | HospiCare</title><link rel="stylesheet" href="css/style.css"><style>.reg{max-width:650px;margin:5vh auto;padding:30px;background:white;border:1px solid var(--line);border-radius:22px}.reg input{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px}.reg label{display:block;margin:12px 0 6px}</style></head><body><main class="reg"><img src="assets/logo.png" style="width:155px" alt="HospiCare"><h1>Create patient account</h1><p>Register to manage appointments, tokens and visit information.</p><form id="firebase-register-form">
+<label>Full name</label><input id="reg-name" required autocomplete="name" placeholder="Your full name">
+<label>Email</label><input id="reg-email" type="email" required autocomplete="email" placeholder="you@example.com">
+<label>Mobile number</label><input id="reg-phone" type="tel" required pattern="[0-9]{10}" maxlength="10" inputmode="numeric" placeholder="10-digit mobile number">
+<label>Password</label><input id="reg-password" type="password" minlength="6" required autocomplete="new-password" placeholder="At least 6 characters">
+<button class="btn btn-primary" style="margin-top:18px">Create account</button><p id="register-msg" role="status" aria-live="polite"></p>
+</form><p><a href="login.html">Already registered? Sign in</a></p></main>
+<footer class="site-footer" aria-label="Website footer">
+  <div class="footer-main">
+    <div class="footer-brand">
+      <a class="footer-logo" href="index.html" aria-label="HospiCare home"><span class="footer-mark">H+</span><strong>HospiCare</strong></a>
+      <p>Healthcare that fits your life. Find hospitals, connect with doctors, book appointments and follow your digital token in one simple place.</p>
+      <small>HospiCare · Digital healthcare platform</small>
+    </div>
+    <div class="footer-links">
+      <h3>Services &amp; Solutions</h3>
+      <a href="appointment.html">Appointment Booking</a>
+      <a href="qr-booking.html">Offline Visitor QR Booking</a>
+      <a href="queue.html">Token &amp; Queue Management</a>
+      <a href="hospitals.html">Find Hospitals</a>
+      <a href="doctors.html">Find Doctors</a>
+      <a href="login.html">Patient &amp; Staff Login</a>
+    </div>
+    <div class="footer-contact">
+      <h3>Contact &amp; Complaints</h3>
+      <p>For demo queries, feedback or complaints:</p>
+      <a href="mailto:support@hospicare.demo">✉ support@hospicare.demo</a>
+      <a href="tel:+919000000000">☎ +91 90000 00000</a>
+      <a class="footer-complaint" href="mailto:support@hospicare.demo?subject=HospiCare%20Demo%20Complaint">Submit a complaint</a>
+      <small>Demo contact details only. Replace with your official email and phone before deployment.</small>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 HospiCare. All rights reserved.</span>
+    <div><a href="index.html">Home</a><a href="login.html">Sign in</a><a href="mailto:support@hospicare.demo?subject=Privacy%20Query">Privacy &amp; support</a></div>
+    <span>Healthcare made simpler.</span>
+  </div>
+</footer>
+
+<script>/* Footer links use demo contact details until replaced by the project owner. */</script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script><script src="js/firebase-config.js"></script><script src="js/firebase-app.js"></script></body></html>

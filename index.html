@@ -1,0 +1,136 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Home | HospiCare</title><link rel="icon" href="assets/icon.png"><script>try{if(localStorage.getItem('hospicare_sidebar')==='collapsed'&&innerWidth>1000)document.documentElement.classList.add('sb-collapsed')}catch(e){}</script><link rel="stylesheet" href="css/style.css"></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="home" viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9a1 1 0 01-1 1h-4v-6h-6v6H5a1 1 0 01-1-1z"/></symbol>
+<symbol id="hospital" viewBox="0 0 24 24"><path d="M4 21V5a1 1 0 011-1h9a1 1 0 011 1v16M15 10h4a1 1 0 011 1v10M2 21h20M9.5 8v5M7 10.5h5"/></symbol>
+<symbol id="doctor" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6M12 15v3M10.5 16.5h3"/></symbol>
+<symbol id="calendar" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17"/></symbol>
+<symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+<symbol id="queue" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-5.5 6.5-5.5s6.5 1.9 6.5 5.5M16 4.8a3.5 3.5 0 010 6.4M18 14.8c2 .7 3.5 2.2 3.5 5.2"/></symbol>
+<symbol id="grid" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></symbol>
+<symbol id="pin" viewBox="0 0 24 24"><path d="M12 21s7-6 7-11.5A7 7 0 005 9.5C5 15 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+<symbol id="star" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8L3.5 9.7l5.9-.9z"/></symbol>
+<symbol id="check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+<symbol id="print" viewBox="0 0 24 24"><path d="M7 9V3.5h10V9M7 17H4.5a1 1 0 01-1-1v-5a2 2 0 012-2h13a2 2 0 012 2v5a1 1 0 01-1 1H17M7 14h10v6.5H7z"/></symbol>
+<symbol id="help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 015 .3c0 1.7-2.5 2-2.5 3.7M12 17h.01"/></symbol>
+<symbol id="plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+</defs></svg><div class="app"><aside class="side" id="sidebar"><div class="side-top"><button class="menu-toggle" id="menu-toggle" type="button" aria-controls="sidebar" aria-expanded="true" aria-label="Collapse menu"><svg class="i"  aria-hidden="true"><use href="#menu"/></svg></button><a class="brand" href="index.html" aria-label="HospiCare home"><img class="full" src="assets/logo.png" alt="HospiCare"><img class="mini" src="assets/icon.png" alt=""></a></div><ul class="nav"><li><a href="index.html" data-tip="Home" aria-current="page"><svg class="i"  aria-hidden="true"><use href="#home"/></svg><span class="lbl">Home</span></a></li><li><a href="hospitals.html" data-tip="Hospitals"><svg class="i"  aria-hidden="true"><use href="#hospital"/></svg><span class="lbl">Hospitals</span></a></li><li><a href="doctors.html" data-tip="Doctors"><svg class="i"  aria-hidden="true"><use href="#doctor"/></svg><span class="lbl">Doctors</span></a></li><li><a href="appointment.html" data-tip="Book appointment"><svg class="i"  aria-hidden="true"><use href="#calendar"/></svg><span class="lbl">Book appointment</span></a></li><li><a href="qr-booking.html" data-tip="Offline QR booking"><svg class="i" aria-hidden="true"><use href="#pin"/></svg><span class="lbl">Offline QR booking</span></a></li><li><a href="queue.html" data-tip="Queue"><svg class="i"  aria-hidden="true"><use href="#queue"/></svg><span class="lbl">Queue</span></a></li><li><a href="dashboard.html" data-tip="Dashboard"><svg class="i"  aria-hidden="true"><use href="#grid"/></svg><span class="lbl">Dashboard</span></a></li><li><a href="login.html" data-tip="Sign in"><span class="lbl">Sign in</span></a></li></ul><a class="btn btn-primary book" href="appointment.html" data-tip="Book now"><svg class="i"  aria-hidden="true"><use href="#plus"/></svg><span class="lbl">Book now</span></a><p class="side-note">HospiCare appointment and queue platform.</p></aside><main class="main">
+<nav class="section-nav" aria-label="Page sections">
+  <a href="#problem">Problem</a>
+  <a href="#how-it-works">How it works</a>
+  <a href="#results">Results</a>
+  <a href="#compare">Compare</a>
+  <span class="section-nav-spacer"></span>
+  <a href="login.html">Sign in</a>
+  <a class="section-nav-cta" href="appointment.html">Book an Appointment <span aria-hidden="true">→</span></a>
+</nav>
+<section class="mint hero"><div style="display:grid;gap:16px"><h1>Healthcare that fits your life.</h1><p class="lede" style="color:var(--text-primary)">Find hospitals, connect with doctors, book appointments and follow your digital token, all in one simple place.</p><div class="row"><a class="btn btn-primary" href="hospitals.html">Explore hospitals</a><a class="btn btn-secondary" href="appointment.html">Book appointment</a></div></div>
+<div class="doctor-spotlight" aria-label="Featured doctor profiles">
+  <div class="doctor-spotlight-head"><span class="tag"><svg class="i" aria-hidden="true"><use href="#doctor"/></svg>Meet our doctors</span></div>
+  <div class="doctor-spotlight-body">
+    
+    <div class="doctor-passport"><img id="spotlight-photo" src="assets/doctor-profile-illustration.svg" alt="Illustrative doctor profile portrait"><span>Profile photo</span></div>
+    <div class="doctor-spotlight-info" aria-live="polite">
+      <h2 id="spotlight-name">Dr. Shrikant Kurhade</h2>
+      <span class="tag" id="spotlight-specialty">Laparoscopic / GI Surgery</span>
+      <p class="doctor-spotlight-hospital" id="spotlight-hospital">KK Multispeciality Hospital</p>
+      <p class="doctor-spotlight-note" id="spotlight-note">Profile details are subject to confirmation by the provider.</p>
+      <a class="btn btn-primary" id="spotlight-book" href="doctor-booking.html?doctor=dr-shrikant-kurhade">View doctor</a>
+    </div>
+    
+  </div>
+  
+</div></section>
+<!-- Opens the integrated HospiCare hospital finder map -->
+<a class="finder" href="hospital-finder/index.html"><div class="finder-body"><span class="tag"><svg class="i"  aria-hidden="true"><use href="#pin"/></svg>Hospital finder</span><h2>Find Hospitals Near You</h2><p class="lede">Discover nearby hospitals and find the right healthcare facility around your location.</p><span class="btn btn-primary"><svg class="i"  aria-hidden="true"><use href="#pin"/></svg>Find Nearby Hospitals</span></div>
+<div class="finder-map finder-video" aria-hidden="true"><video class="finder-map-video" autoplay muted loop playsinline preload="metadata" poster="assets/hospital-map-poster.jpg"><source src="assets/hospital-map-video.mp4" type="video/mp4">Your browser does not support HTML5 video.</video></div></a><section class="offline-qr-feature"><div class="offline-qr-copy"><span class="tag">For walk-in visitors</span><h2>Visited the hospital in person? Scan. Book. Get notified.</h2><p class="lede">A QR code at reception lets visitors open the HospiCare booking page on their phone, choose an appointment slot and follow their token—without standing in a long registration line.</p><div class="offline-qr-points"><p><b>01</b> Scan the hospital QR code</p><p><b>02</b> Book a doctor and appointment slot</p><p><b>03</b> Follow your token and receive a turn alert</p></div><a class="btn btn-primary" href="qr-booking.html">Set up hospital QR code →</a></div><div class="offline-qr-art"><div class="qr-mock"><div class="qr-pattern"><i></i><i></i><i></i></div></div><span class="tag">Scan to book</span><p><b>No registration counter queue</b><br><small>Book from your own phone</small></p></div></section>
+<section><h2 style="margin-bottom:16px">What do you need today?</h2><div class="grid"><a class="card pick" href="hospitals.html"><span class="art" style="height:64px;width:64px"><svg class="i"  aria-hidden="true"><use href="#hospital"/></svg></span><h3>Find a hospital</h3><p class="muted">Explore hospital information</p></a><a class="card pick" href="doctors.html"><span class="art" style="height:64px;width:64px"><svg class="i"  aria-hidden="true"><use href="#doctor"/></svg></span><h3>Find a doctor</h3><p class="muted">Browse medical specialities</p></a><a class="card pick" href="appointment.html"><span class="art" style="height:64px;width:64px"><svg class="i"  aria-hidden="true"><use href="#calendar"/></svg></span><h3>Book appointment</h3><p class="muted">Choose your visit time</p></a><a class="card pick" href="queue.html"><span class="art" style="height:64px;width:64px"><svg class="i"  aria-hidden="true"><use href="#clock"/></svg></span><h3>Check token status</h3><p class="muted">Follow your demo queue</p></a></div></section>
+<section><h2 style="margin-bottom:16px">Care in three simple steps</h2><div class="three"><article class="card pick"><span class="dot">1</span><h3>Discover</h3><p class="muted">Find hospitals and doctors that match your needs.</p></article><article class="card pick"><span class="dot">2</span><h3>Book</h3><p class="muted">Select a hospital, doctor, date and time.</p></article><article class="card pick"><span class="dot">3</span><h3>Track</h3><p class="muted">Receive a demo token and view queue status.</p></article></div></section>
+
+<section class="info-section" id="problem">
+  <div class="section-kicker">THE PROBLEM</div>
+  <h2 class="info-heading">Hospital visits should feel simpler — not like waiting without answers.</h2>
+  <p class="info-lede">Long queues, unclear appointment timings and scattered information can make a hospital visit stressful for patients and staff.</p>
+  <div class="problem-grid">
+    <article class="info-card"><span class="info-icon"><svg class="i" aria-hidden="true"><use href="#clock"/></svg></span><span class="section-kicker">LONG WAITING</span><h3>Patients do not know when their turn will come.</h3><p>Without clear token and queue information, patients may spend unnecessary time waiting at the hospital.</p></article>
+    <article class="info-card"><span class="info-icon"><svg class="i" aria-hidden="true"><use href="#queue"/></svg></span><span class="section-kicker">MANUAL WORK</span><h3>Staff spend time managing queues.</h3><p>Manual registers, phone calls and repeated questions make appointment and queue management harder.</p></article>
+    <article class="info-card"><span class="info-icon"><svg class="i" aria-hidden="true"><use href="#calendar"/></svg></span><span class="section-kicker">SCATTERED DETAILS</span><h3>Appointment information is difficult to follow.</h3><p>Patients, doctors and hospital teams need a consistent view of bookings and appointment status.</p></article>
+    <article class="info-card"><span class="info-icon"><svg class="i" aria-hidden="true"><use href="#grid"/></svg></span><span class="section-kicker">LIMITED VISIBILITY</span><h3>Managers need a clearer operational picture.</h3><p>Hospital teams need useful summaries of appointments, doctors, departments and queue activity.</p></article>
+  </div>
+</section>
+
+<section class="info-section" id="how-it-works">
+  <div class="section-kicker">HOW IT WORKS</div>
+  <h2 class="info-heading">A simpler journey from finding care to tracking your turn.</h2>
+  <p class="info-lede">HospiCare brings hospital discovery, appointment booking and token tracking into one connected experience.</p>
+  <div class="workflow-grid">
+    <article class="workflow-card"><span class="workflow-number">01</span><h3>Find a hospital</h3><p>Explore hospital information and use the nearby-hospital finder to discover facilities around you.</p></article>
+    <article class="workflow-card"><span class="workflow-number">02</span><h3>Choose a doctor</h3><p>Browse doctors and select the hospital, department and doctor that suit your visit.</p></article>
+    <article class="workflow-card"><span class="workflow-number">03</span><h3>Book a slot</h3><p>Choose an available date and time, enter patient details and confirm the appointment.</p></article>
+    <article class="workflow-card"><span class="workflow-number">04</span><h3>Track your token</h3><p>View your token and queue status so you can follow the appointment journey.</p></article>
+  </div>
+</section>
+
+<section class="info-section" id="results">
+  <div class="section-kicker">RESULTS</div>
+  <h2 class="info-heading">What a connected workflow is designed to improve.</h2>
+  <p class="info-lede">These are intended benefits of the HospiCare workflow, not measured clinical or operational results. Actual outcomes depend on deployment and real hospital data.</p>
+  <div class="results-grid">
+    <article class="result-card"><div class="result-icon">✓</div><h3>Clearer appointment details</h3><p>Patients can review booking information and appointment status in one place.</p></article>
+    <article class="result-card"><div class="result-icon">⌖</div><h3>Better queue visibility</h3><p>Token tracking gives patients and authorized staff a shared view of queue progress.</p></article>
+    <article class="result-card"><div class="result-icon">▦</div><h3>Organized dashboards</h3><p>Role-based views can bring patient, doctor and hospital information together.</p></article>
+    <article class="result-card"><div class="result-icon">↗</div><h3>Useful management insights</h3><p>Once connected to verified backend data, dashboards can summarize appointments and operations.</p></article>
+  </div>
+  <p class="results-note">Current project note: the browser-only demo uses sample records and simulated queue values. Live results require backend, database and hospital integration.</p>
+</section>
+
+<section class="info-section" id="compare">
+  <div class="section-kicker">COMPARE</div>
+  <h2 class="info-heading">A connected digital workflow compared with a manual process.</h2>
+  <p class="info-lede">The comparison below describes intended capabilities. It does not claim measured performance improvements.</p>
+  <div class="compare-wrap">
+    <table class="compare-table">
+      <thead><tr><th>Activity</th><th>Manual process</th><th>HospiCare approach</th></tr></thead>
+      <tbody>
+        <tr><td>Finding hospitals</td><td>Search through separate sources or call facilities.</td><td>Hospital listings and a dedicated nearby-hospital finder.</td></tr>
+        <tr><td>Booking appointments</td><td>Phone calls or in-person coordination.</td><td>Guided online appointment booking flow.</td></tr>
+        <tr><td>Queue information</td><td>Ask staff or check a physical token display.</td><td>Digital token and queue-status view.</td></tr>
+        <tr><td>Doctor workflow</td><td>Schedules and patient details may be spread across tools.</td><td>Dedicated doctor dashboard for authorized appointments and records.</td></tr>
+        <tr><td>Hospital oversight</td><td>Manual consolidation of operational information.</td><td>Manager dashboard with hospital-level summaries from connected data.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<section class="panel" style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap"><h2>Your next appointment starts here.</h2><a class="btn btn-primary" href="appointment.html">Get started</a></section></main></div><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script><script src="js/firebase-config.js"></script><script src="js/firebase-app.js"></script><script src="js/script.js"></script>
+<footer class="site-footer" aria-label="Website footer">
+  <div class="footer-main">
+    <div class="footer-brand">
+      <a class="footer-logo" href="index.html" aria-label="HospiCare home"><span class="footer-mark">H+</span><strong>HospiCare</strong></a>
+      <p>Healthcare that fits your life. Find hospitals, connect with doctors, book appointments and follow your digital token in one simple place.</p>
+      <small>HospiCare · Alandi launch initiative</small>
+    </div>
+    <div class="footer-links">
+      <h3>Services &amp; Solutions</h3>
+      <a href="appointment.html">Appointment Booking</a>
+      <a href="queue.html">Token &amp; Queue Management</a>
+      <a href="hospitals.html">Find Hospitals</a>
+      <a href="doctors.html">Find Doctors</a>
+      <a href="login.html">Patient &amp; Staff Login</a>
+    </div>
+    <div class="footer-contact">
+      <h3>Contact &amp; Complaints</h3>
+      <p>For demo queries, feedback or complaints:</p>
+      <a href="mailto:support@hospicare.demo">✉ support@hospicare.demo</a>
+      <a href="tel:+919000000000">☎ +91 90000 00000</a>
+      <a class="footer-complaint" href="mailto:support@hospicare.demo?subject=HospiCare%20Demo%20Complaint">Submit a complaint</a>
+      <small>Demo contact details only. Replace with your official email and phone before deployment.</small>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 HospiCare. All rights reserved.</span>
+    <div><a href="index.html">Home</a><a href="login.html">Sign in</a><a href="mailto:support@hospicare.demo?subject=Privacy%20Query">Privacy &amp; support</a></div>
+    <span>Healthcare made simpler.</span>
+  </div>
+</footer>
+
+<script>/* Footer links use demo contact details until replaced by the project owner. */</script>
+</body></html>

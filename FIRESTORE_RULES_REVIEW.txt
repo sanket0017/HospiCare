@@ -1,0 +1,20 @@
+RULES REVIEW — 10 NOV 2026
+
+The Firestore rules were compared with js/firebase-app.js and js/firebase-workflows.js.
+The booking transaction writes:
+- appointments/{generatedAppointmentId}
+- slotLocks/{doctorId}_{date}_{time}
+- queues/{doctorId}_{date}
+
+The rules use getAfter() to validate these atomic writes together.
+The appointment-create rule also checks that:
+- the doctor document exists
+- the doctor belongs to the selected hospital
+- the hospital document exists and is not inactive
+- doctorAvailability exists and is enabled
+
+IMPORTANT:
+- This is a static code review, not a live Firebase Rules Emulator test.
+- Do not publish until the rules compile and the allow/deny test cases pass.
+- The current rules do not independently validate weekly day/time arithmetic; the booking transaction checks those values. A production system should move critical scheduling validation to trusted server code or enforce all required constraints with a tested rules design.
+- Existing records are not deleted or migrated by this ZIP.

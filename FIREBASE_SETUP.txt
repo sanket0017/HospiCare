@@ -1,0 +1,1 @@
+For the current Firebase-connected cross-device demo instructions, read FIREBASE_CROSS_DEVICE_SETUP.txt.\n

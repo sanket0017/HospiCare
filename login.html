@@ -1,0 +1,50 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sign in | HospiCare</title><link rel="icon" href="assets/icon.png"><link rel="stylesheet" href="css/style.css"><style>
+.auth-wrap{min-height:100vh;display:grid;place-items:center;padding:28px}.auth-card{width:min(100%,520px);background:#fff;border:1px solid var(--line);border-radius:24px;padding:32px;box-shadow:0 18px 55px #193d3a12}.auth-brand{display:flex;align-items:center;justify-content:center;margin-bottom:18px}.auth-brand img{width:170px;max-height:65px;object-fit:contain}.auth-card h1{text-align:center;margin:8px 0}.auth-card .sub{text-align:center;color:var(--text-muted);margin-bottom:24px}.roles{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:12px 0 20px}.role{border:1px solid var(--line);background:#fff;border-radius:13px;padding:13px 5px;cursor:pointer;color:var(--text-primary);font:inherit}.role[aria-pressed=true]{border-color:var(--brand);background:#eaf7f4;color:#087f73}.field{display:grid;gap:7px;margin:14px 0}.field input{width:100%;border:1px solid var(--line);border-radius:11px;padding:13px;font:inherit}.auth-actions{display:flex;justify-content:space-between;gap:12px;margin-top:14px;flex-wrap:wrap}.auth-note{font-size:12px;color:var(--text-muted);background:#f2f8f6;padding:12px;border-radius:12px;margin-top:18px}.pwrow{display:flex;gap:8px}.pwrow input{flex:1;min-width:0}@media(max-width:520px){.auth-card{padding:22px}.roles{grid-template-columns:1fr}}
+</style></head><body><main class="auth-wrap"><section class="auth-card"><div class="auth-brand"><img src="assets/logo.png" alt="HospiCare"></div><h1>Welcome back</h1><p class="sub">Sign in to continue to your HospiCare workspace.</p><form id="loginForm"><label><b>Choose your role</b></label><div class="roles"><button class="role" type="button" data-role="patient" aria-pressed="true">Patient</button><button class="role" type="button" data-role="doctor" aria-pressed="false">Doctor</button><button class="role" type="button" data-role="manager" aria-pressed="false">Hospital<br>Manager</button></div><div class="field"><label for="email">Email or mobile number</label><input id="email" autocomplete="username" required placeholder="you@example.com"></div><div class="field"><label for="password">Password</label><div class="pwrow"><input id="password" type="password" autocomplete="current-password" required placeholder="Enter password"><button class="btn btn-secondary" type="button" id="togglePw">Show</button></div></div><div class="auth-actions"><a href="#" id="forgot">Forgot password?</a><a href="register.html">Create patient account</a></div><button class="btn btn-primary" style="width:100%;margin-top:20px" type="submit">Sign in</button><p id="msg" role="status" style="margin-top:12px"></p></form><p style="text-align:center;margin-top:18px"><a href="index.html">← Back to homepage</a></p></section></main><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script><script src="js/firebase-config.js"></script><script src="js/firebase-app.js"></script><script>
+// Role selection and password visibility only. Authentication is handled centrally
+// by js/firebase-app.js; do not attach a second/demo submit handler here.
+document.querySelectorAll('[data-role]').forEach(button=>{
+  button.addEventListener('click',()=>{
+    document.querySelectorAll('[data-role]').forEach(item=>item.setAttribute('aria-pressed',String(item===button)));
+  });
+});
+document.getElementById('togglePw').addEventListener('click',()=>{
+  const input=document.getElementById('password');
+  input.type=input.type==='password'?'text':'password';
+  document.getElementById('togglePw').textContent=input.type==='password'?'Show':'Hide';
+});
+</script>
+<footer class="site-footer" aria-label="Website footer">
+  <div class="footer-main">
+    <div class="footer-brand">
+      <a class="footer-logo" href="index.html" aria-label="HospiCare home"><span class="footer-mark">H+</span><strong>HospiCare</strong></a>
+      <p>Healthcare that fits your life. Find hospitals, connect with doctors, book appointments and follow your digital token in one simple place.</p>
+      <small>HospiCare · Digital healthcare platform</small>
+    </div>
+    <div class="footer-links">
+      <h3>Services &amp; Solutions</h3>
+      <a href="appointment.html">Appointment Booking</a>
+      <a href="qr-booking.html">Offline Visitor QR Booking</a>
+      <a href="queue.html">Token &amp; Queue Management</a>
+      <a href="hospitals.html">Find Hospitals</a>
+      <a href="doctors.html">Find Doctors</a>
+      <a href="login.html">Patient &amp; Staff Login</a>
+    </div>
+    <div class="footer-contact">
+      <h3>Contact &amp; Complaints</h3>
+      <p>For demo queries, feedback or complaints:</p>
+      <a href="mailto:support@hospicare.demo">✉ support@hospicare.demo</a>
+      <a href="tel:+919000000000">☎ +91 90000 00000</a>
+      <a class="footer-complaint" href="mailto:support@hospicare.demo?subject=HospiCare%20Demo%20Complaint">Submit a complaint</a>
+      <small>Demo contact details only. Replace with your official email and phone before deployment.</small>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 HospiCare. All rights reserved.</span>
+    <div><a href="index.html">Home</a><a href="login.html">Sign in</a><a href="mailto:support@hospicare.demo?subject=Privacy%20Query">Privacy &amp; support</a></div>
+    <span>Healthcare made simpler.</span>
+  </div>
+</footer>
+
+<script>/* Footer links use demo contact details until replaced by the project owner. */</script>
+</body></html>

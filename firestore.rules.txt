@@ -1,0 +1,134 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function userPath() { return /databases/$(database)/documents/users/$(request.auth.uid); }
+    function hasUser() { return signedIn() && exists(userPath()); }
+    function profile() { return get(userPath()).data; }
+    function isDoctorFor(doctorId) {
+      return hasUser() && profile().role == 'doctor' && profile().doctorId == doctorId;
+    }
+    function isManagerFor(hospitalId) {
+      return hasUser() && profile().role in ['manager','hospital_manager'] && profile().hospitalId == hospitalId;
+    }
+    function queueDateOf(data) {
+      return ('queueDate' in data) ? data.queueDate : data.appointmentDate;
+    }
+    function validQueueId(doctorId, qDate, queueId) {
+      return queueId == doctorId + '_' + qDate;
+    }
+
+    match /users/{userId} {
+      allow read: if signedIn() && request.auth.uid == userId;
+      allow create: if signedIn() && request.auth.uid == userId
+        && request.resource.data.role == 'patient'
+        && !('doctorId' in request.resource.data) && !('hospitalId' in request.resource.data);
+      allow update: if signedIn() && request.auth.uid == userId
+        && !request.resource.data.diff(resource.data).affectedKeys().hasAny(['role','doctorId','hospitalId']);
+      allow delete: if false;
+    }
+    match /hospitals/{hospitalId} { allow read: if true; allow write: if false; }
+    match /doctors/{doctorId} { allow read: if true; allow write: if false; }
+
+    match /doctorAvailability/{doctorId} {
+      allow read: if true;
+      allow create, update: if isDoctorFor(doctorId)
+        && request.resource.data.doctorId == doctorId
+        && request.resource.data.hospitalId == profile().hospitalId
+        && request.resource.data.availableDays is list
+        && request.resource.data.startTime is string
+        && request.resource.data.endTime is string
+        && request.resource.data.slotMinutes in [15,20,30,60]
+        && request.resource.data.enabled is bool;
+      allow delete: if isDoctorFor(doctorId);
+    }
+
+    match /slotLocks/{slotId} {
+      allow read: if signedIn();
+      allow create: if signedIn()
+        && request.resource.data.doctorId is string
+        && request.resource.data.appointmentDate is string
+        && request.resource.data.appointmentTime is string
+        && request.resource.data.appointmentId is string
+        && slotId == request.resource.data.doctorId + '_' + request.resource.data.appointmentDate + '_' + request.resource.data.appointmentTime
+        && getAfter(/databases/$(database)/documents/appointments/$(request.resource.data.appointmentId)).data.patientId == request.auth.uid
+        && getAfter(/databases/$(database)/documents/appointments/$(request.resource.data.appointmentId)).data.doctorId == request.resource.data.doctorId
+        && getAfter(/databases/$(database)/documents/appointments/$(request.resource.data.appointmentId)).data.appointmentDate == request.resource.data.appointmentDate
+        && getAfter(/databases/$(database)/documents/appointments/$(request.resource.data.appointmentId)).data.appointmentTime == request.resource.data.appointmentTime
+        && getAfter(/databases/$(database)/documents/appointments/$(request.resource.data.appointmentId)).data.slotId == slotId;
+      allow update, delete: if false;
+    }
+
+    // Queue documents contain counters only; no patient details.
+    match /queues/{queueId} {
+      allow read: if true;
+      allow create: if signedIn()
+        && validQueueId(request.resource.data.doctorId, request.resource.data.queueDate, queueId)
+        && request.resource.data.status == 'active'
+        && request.resource.data.currentServingToken == 0
+        && request.resource.data.lastIssuedToken == 1
+        && request.resource.data.lastAppointmentId is string
+        && getAfter(/databases/$(database)/documents/appointments/$(request.resource.data.lastAppointmentId)).data.patientId == request.auth.uid
+        && getAfter(/databases/$(database)/documents/appointments/$(request.resource.data.lastAppointmentId)).data.queueId == queueId
+        && getAfter(/databases/$(database)/documents/appointments/$(request.resource.data.lastAppointmentId)).data.tokenNumber == 1;
+      allow update: if (
+        isDoctorFor(resource.data.doctorId)
+        && validQueueId(resource.data.doctorId, queueDateOf(resource.data), queueId)
+        && request.resource.data.doctorId == resource.data.doctorId
+        && request.resource.data.hospitalId == resource.data.hospitalId
+        && queueDateOf(request.resource.data) == queueDateOf(resource.data)
+        && request.resource.data.lastIssuedToken == resource.data.lastIssuedToken
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['currentServingToken','status','updatedAt'])
+        && request.resource.data.currentServingToken >= resource.data.currentServingToken
+        && request.resource.data.currentServingToken <= resource.data.lastIssuedToken
+        && request.resource.data.status in ['active','paused','completed']
+      ) || (
+        signedIn()
+        && validQueueId(resource.data.doctorId, queueDateOf(resource.data), queueId)
+        && request.resource.data.doctorId == resource.data.doctorId
+        && request.resource.data.hospitalId == resource.data.hospitalId
+        && queueDateOf(request.resource.data) == queueDateOf(resource.data)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['queueDate','lastIssuedToken','lastAppointmentId','updatedAt'])
+        && request.resource.data.lastIssuedToken == resource.data.lastIssuedToken + 1
+        && request.resource.data.lastAppointmentId is string
+        && getAfter(/databases/$(database)/documents/appointments/$(request.resource.data.lastAppointmentId)).data.patientId == request.auth.uid
+        && getAfter(/databases/$(database)/documents/appointments/$(request.resource.data.lastAppointmentId)).data.queueId == queueId
+        && getAfter(/databases/$(database)/documents/appointments/$(request.resource.data.lastAppointmentId)).data.tokenNumber == request.resource.data.lastIssuedToken
+      );
+      allow delete: if false;
+    }
+
+    match /appointments/{appointmentId} {
+      allow create: if signedIn()
+        && request.resource.data.patientId == request.auth.uid
+        && request.resource.data.status == 'booked'
+        && request.resource.data.tokenNumber is int
+        && request.resource.data.tokenNumber > 0
+        && request.resource.data.doctorId is string
+        && request.resource.data.hospitalId is string
+        && request.resource.data.appointmentDate is string
+        && request.resource.data.appointmentTime is string
+        && request.resource.data.slotId is string
+        && validQueueId(request.resource.data.doctorId, request.resource.data.appointmentDate, request.resource.data.queueId)
+        && exists(/databases/$(database)/documents/doctors/$(request.resource.data.doctorId))
+        && get(/databases/$(database)/documents/doctors/$(request.resource.data.doctorId)).data.hospitalId == request.resource.data.hospitalId
+        && exists(/databases/$(database)/documents/hospitals/$(request.resource.data.hospitalId))
+        && get(/databases/$(database)/documents/hospitals/$(request.resource.data.hospitalId)).data.status != 'inactive'
+        && exists(/databases/$(database)/documents/doctorAvailability/$(request.resource.data.doctorId))
+        && get(/databases/$(database)/documents/doctorAvailability/$(request.resource.data.doctorId)).data.enabled == true
+        && getAfter(/databases/$(database)/documents/queues/$(request.resource.data.queueId)).data.doctorId == request.resource.data.doctorId
+        && getAfter(/databases/$(database)/documents/queues/$(request.resource.data.queueId)).data.hospitalId == request.resource.data.hospitalId
+        && queueDateOf(getAfter(/databases/$(database)/documents/queues/$(request.resource.data.queueId)).data) == request.resource.data.appointmentDate
+        && getAfter(/databases/$(database)/documents/queues/$(request.resource.data.queueId)).data.lastAppointmentId == appointmentId
+        && getAfter(/databases/$(database)/documents/queues/$(request.resource.data.queueId)).data.lastIssuedToken == request.resource.data.tokenNumber
+        && request.resource.data.slotId == request.resource.data.doctorId + '_' + request.resource.data.appointmentDate + '_' + request.resource.data.appointmentTime
+        && getAfter(/databases/$(database)/documents/slotLocks/$(request.resource.data.slotId)).data.appointmentId == appointmentId;
+      allow read: if signedIn() && (
+        resource.data.patientId == request.auth.uid
+        || isDoctorFor(resource.data.doctorId)
+        || isManagerFor(resource.data.hospitalId)
+      );
+      allow update, delete: if false;
+    }
+  }
+}

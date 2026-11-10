@@ -1,0 +1,37 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Patient dashboard | HospiCare</title><link rel="stylesheet" href="css/style.css"><style>.dash{padding:30px;max-width:1450px;margin:auto}.dashhead{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin:22px 0}.stat,.panel{background:white;border:1px solid var(--line);border-radius:17px;padding:19px}.stat small{color:var(--text-muted)}.stat strong{display:block;font-size:27px;margin-top:8px;color:var(--text-primary)}.panel{margin:16px 0}.panel h2{margin-top:0}.muted{color:var(--text-muted)}.demo{background:#fff5dc;color:#805c0c;padding:10px 13px;border-radius:10px;font-size:13px}.dashgrid{display:grid;grid-template-columns:1.3fr 1fr;gap:16px}@media(max-width:800px){.dash{padding:18px}.dashgrid{grid-template-columns:1fr}}table{width:100%;border-collapse:collapse}td,th{text-align:left;padding:11px;border-bottom:1px solid var(--line);font-size:14px}th{color:var(--text-muted)}
+</style></head><body><main class="dash"><div class="dashhead"><div><p class="muted">HOSPICARE / PATIENT PORTAL</p><h1>Your health, in one place</h1><p class="muted">Manage your appointments, tokens and health information.</p></div><div><a class="btn btn-secondary" href="index.html">Home</a> <button class="btn btn-primary" onclick="hcAuth?.signOut().finally(()=>{sessionStorage.clear();location.href='index.html'})">Sign out</button></div></div><p class="demo">Firebase-connected demonstration dashboard. Revenue remains ₹0 because payment processing is not connected.</p><section class="stats"><article class="stat"><small>My appointments</small><strong id="my-count">0</strong></article><article class="stat"><small>Upcoming</small><strong id="my-upcoming">0</strong></article><article class="stat"><small>Latest token</small><strong id="my-token">—</strong></article></section><div class="dashgrid"><section class="panel"><h2>Upcoming appointments</h2><table><tr><th>Doctor</th><th>Date</th><th>Status</th></tr><tbody id="patient-upcoming-rows"><tr><td colspan="3">No upcoming appointments for this account.</td></tr></tbody></table><p><a class="btn btn-primary" href="appointment.html">Book appointment</a></p></section><section class="panel"><h2>Quick actions</h2><p><a href="hospitals.html">Find hospitals</a></p><p><a href="doctors.html">Find doctors</a></p><p><a href="queue.html">Track queue</a></p><p><a href="token.html">View token</a></p></section></div><section class="panel"><h2>My saved profile</h2><div id="my-profile">No patient account signed in.</div></section><section class="panel"><h2>My appointment history</h2><div id="my-appointments">No saved appointments yet.</div></section><section class="panel"><h2>Medical records & prescriptions</h2><p class="muted">Your authorized reports and prescriptions will appear here after secure backend integration.</p></section><p class="muted" style="font-size:12px">HospiCare prototype • Multi-hospital architecture planned • Figures below are illustrative.</p></main><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script><script src="js/firebase-config.js"></script><script src="js/firebase-app.js"></script>
+<script src="js/firebase-workflows.js"></script>
+<footer class="site-footer" aria-label="Website footer">
+  <div class="footer-main">
+    <div class="footer-brand">
+      <a class="footer-logo" href="index.html" aria-label="HospiCare home"><span class="footer-mark">H+</span><strong>HospiCare</strong></a>
+      <p>Healthcare that fits your life. Find hospitals, connect with doctors, book appointments and follow your digital token in one simple place.</p>
+      <small>HospiCare · Digital healthcare platform</small>
+    </div>
+    <div class="footer-links">
+      <h3>Services &amp; Solutions</h3>
+      <a href="appointment.html">Appointment Booking</a>
+      <a href="qr-booking.html">Offline Visitor QR Booking</a>
+      <a href="queue.html">Token &amp; Queue Management</a>
+      <a href="hospitals.html">Find Hospitals</a>
+      <a href="doctors.html">Find Doctors</a>
+      <a href="login.html">Patient &amp; Staff Login</a>
+    </div>
+    <div class="footer-contact">
+      <h3>Contact &amp; Complaints</h3>
+      <p>For demo queries, feedback or complaints:</p>
+      <a href="mailto:support@hospicare.demo">✉ support@hospicare.demo</a>
+      <a href="tel:+919000000000">☎ +91 90000 00000</a>
+      <a class="footer-complaint" href="mailto:support@hospicare.demo?subject=HospiCare%20Demo%20Complaint">Submit a complaint</a>
+      <small>Demo contact details only. Replace with your official email and phone before deployment.</small>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 HospiCare. All rights reserved.</span>
+    <div><a href="index.html">Home</a><a href="login.html">Sign in</a><a href="mailto:support@hospicare.demo?subject=Privacy%20Query">Privacy &amp; support</a></div>
+    <span>Healthcare made simpler.</span>
+  </div>
+</footer>
+
+<script>/* Footer links use demo contact details until replaced by the project owner. */</script>
+</body></html>

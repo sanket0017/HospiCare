@@ -1,0 +1,42 @@
+HOSPICARE LIVE FIRESTORE QUEUE UPDATE
+====================================
+
+WHAT IS INCLUDED
+- Per-doctor, per-date queue documents in Firestore: queues/{doctorId}_{YYYY-MM-DD}.
+- Booking allocates a token in a Firestore transaction and writes the appointment + queue counter atomically.
+- Patient queue page listens with Firestore onSnapshot; no refresh is needed.
+- Doctor dashboard reads/writes the selected date queue and offers Set now serving, Next patient, Pause/resume.
+- Queue documents contain aggregate counters only, not patient names or phone numbers.
+- Draft Firestore rules restrict queue management to a doctor whose users/{uid} profile has role='doctor' and doctorId matching the queue.
+
+BEFORE TESTING
+1. Firebase Web configuration has been inserted into js/firebase-config.js from the HospiCare-Web Config screen. If Firebase reports an invalid-api-key error, re-copy the apiKey from Project settings > Your apps > HospiCare-Web > Config and replace only the apiKey value.
+
+
+3. Ensure Email/Password Authentication is enabled.
+4. In Firestore, each doctor must have a matching document in doctors/{doctorId} with a name matching the booking form's doctor name.
+5. For each doctor login, set users/{AUTH_UID} fields:
+   role: 'doctor'
+   doctorId: '<exact Firestore doctors document ID>'
+   hospitalId: '<hospital document ID>'
+   Do not let users self-assign these staff fields. Set them as project administrator.
+6. Patients must be signed in before booking. Bookings use Firebase Auth and Firestore.
+7. In the existing queues/doctor_001_2026-11-10 document, add a field named queueDate (string) with value 2026-11-10. Keep the existing appointmentDate field; do not delete it. Confirm averageConsultationMinutes is the number 10.
+8. The existing sample appointment appointments/appointments_001 is legacy test data and has no queueId. New bookings will write queueId automatically. Do not use that old sample appointment to test the new live queue.
+9. Review firestore.rules.txt carefully, then publish it in Firebase Console > Firestore Database > Rules. Do not replace rules until the doctor profile mappings above are correct.
+10. Test with two separate browsers/devices: patient books; doctor signs in and advances the queue; patient queue page should update automatically.
+
+QUEUE BEHAVIOUR
+- Token sequence is per doctor and appointment date, not shared across all hospitals.
+- currentServingToken starts at 0. Doctor presses Next patient to advance by one.
+- Patient alert triggers when two or fewer tokens remain ahead, while queue page is open and notification permission is granted.
+- Browser notification permission must be enabled. This package does not provide background notifications when the browser is closed; that requires Firebase Cloud Messaging service worker and a deployed sender/backend.
+
+IMPORTANT LIMITATIONS / SAFETY
+- Firebase web config API key is intentionally a placeholder; this ZIP cannot connect until you add the real Web API key.
+- This is a development prototype, not a production-ready medical system.
+- The rules are a draft to review/test in Firebase Rules Playground or Emulator before publishing. Staff role/doctorId mapping must be administered securely.
+- Public queue documents expose only token counters/status. Never add patient identity, phone, symptoms, reports, or medical information to queues.
+- The existing appointment flow includes a client-side Firestore transaction. For a commercial deployment, move token allocation to a trusted Cloud Function/backend to prevent abuse and add server-side validation, slot locking, cancellation handling and audit logs.
+- Notifications while the browser is closed need FCM and a trusted server-side trigger.
+- No live Firebase connection could be verified here because the project's Web API key is not present in the supplied ZIP.
